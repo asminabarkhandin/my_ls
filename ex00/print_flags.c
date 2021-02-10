@@ -12,6 +12,8 @@ void print_flags(flags* flag)
     }
     if(flag->a == 0 && flag->t == 0)
     {
-        no_flag();
+        //no_flag();
+        file_flag(flag->file, flag->size);
     }
+    
 }
