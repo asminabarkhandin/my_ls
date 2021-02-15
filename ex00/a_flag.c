@@ -1,10 +1,5 @@
 #include "my_ls.h"
 
-struct file
-{
-    char* name;
-    struct file *next;
-};
 
 
 int my_strcmp(const char *str1, const char *str2)

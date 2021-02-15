@@ -1,19 +1,27 @@
 #include "my_ls.h"
 void no_flag(){
 
-    DIR *folder;
-    folder = opendir(".");
-    struct dirent *entry;
-    if(folder == NULL){
-        printf("is null\n");
-    } else
+    struct file *head = NULL;
+    struct dirent  *entry;
+    DIR *dir;
+    dir = opendir(".");
+    while ((entry = readdir(dir)) != NULL) 
     {
-        while(entry = readdir(folder))
-        {
-            if(entry->d_name[0] != '.')
-            printf("%s\n", entry->d_name);
-        }
+        if(entry->d_name[0] != '.')
+        head = insert(head, entry->d_name);
     }
-    closedir(folder);
+         
+        struct file *current = head;
+        while (current != NULL) {
+            printf("%s\n", current->name);
+            current = current->next;
+        }
+        struct file *tofree;
+        while (head != NULL) {
+            tofree = head;
+            head = head->next;
+            free(tofree);
+        }
+        closedir(dir);
     
 }

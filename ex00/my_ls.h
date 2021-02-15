@@ -14,6 +14,12 @@ typedef struct flags
     
 } flags;
 
+struct file
+{
+    char* name;
+    struct file *next;
+};
+
 struct file_tm
 {
     char* name;
@@ -24,6 +30,8 @@ struct file_tm
 flags* load_flags(int ac, char** av);
 
 void print_flags(flags* flag);
+
+struct file *insert (struct file *head, char* name);
 
 void a_flag();
 

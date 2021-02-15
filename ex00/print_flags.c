@@ -15,5 +15,10 @@ void print_flags(flags* flag)
         at_flag();
         //file_flag(flag->file, flag->size);
     }
+    if(flag->a == 0 && flag->t == 0)
+    {
+        no_flag();
+        //file_flag(flag->file, flag->size);
+    }
     
 }
