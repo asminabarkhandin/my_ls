@@ -14,6 +14,7 @@ typedef struct flags
 {
     int a;
     int t;
+    int size;
     struct dir* dir_container;
     
 } flags;

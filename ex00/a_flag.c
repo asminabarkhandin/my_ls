@@ -71,7 +71,11 @@ void a_flag(flags* flag)
         struct dir *container = flag->dir_container;
         while(container != NULL)
         {
-            printf("%s:\n", container->name);
+            if(flag->size != 1)
+            {
+                printf("%s:\n", container->name);
+            }
+            
             a_print(container->name);
             container = container->next;
         }

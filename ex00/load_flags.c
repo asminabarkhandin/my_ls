@@ -5,6 +5,7 @@ flags* set_object(int ac)
     flags* result = (flags*)malloc(sizeof(flags));
     result->a = 0;
     result->t = 0;
+    result->size = 0;
     result->dir_container = NULL;
     return result;
 }
@@ -51,6 +52,7 @@ flags* load_flags(int ac, char** av)
     flags* result = set_object(ac);
     struct dir* head = NULL;
     int index = 1;
+    int size = 0;
     while (index < ac)
     {
         if (av[index][0] == '-')
@@ -59,10 +61,12 @@ flags* load_flags(int ac, char** av)
         } else
         {
             head = set_dir(head, av[index]);
+            size++;
         }
         index++;
     }
 
     result->dir_container = head;
+    result->size = size;
     return result;
 }

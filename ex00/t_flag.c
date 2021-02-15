@@ -3,7 +3,7 @@
 
 
 double my_difftime(long int tm1,long int tm2)
-{   //here is minus cuz we are putting most recent in the beginnig,
+{   //here is minus cuz we are putting most recent in the begining,
     //most recent time has more milliseconds => the order is DESC order
     return -(tm1-tm2);
 }
@@ -38,7 +38,7 @@ struct file_tm *insert_tm (struct file_tm *head, char* name, long int tm)
 
 void t_print(char* str)
 {
-    printf("%s\n", str);
+    //printf("%s\n", str);
     struct file_tm *head = NULL;
     struct dirent  *entry;
     struct stat     statbuf;
@@ -83,7 +83,10 @@ void t_flag(flags* flag)
         struct dir *container = flag->dir_container;
         while(container != NULL)
         {
-            printf("%s:\n", container->name);
+            if(flag->size != 1)
+            {
+                printf("%s:\n", container->name);
+            }
             t_print(container->name);
             container = container->next;
         }
