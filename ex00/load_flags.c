@@ -6,13 +6,13 @@ flags* set_object(int ac)
     result->a = 0;
     result->t = 0;
     result->size = 0;
-    result->file = malloc(sizeof(char*) * ac);
+    //result->dir = malloc(sizeof(char*) * (ac-1));
     return result;
 }
 
 void set_flags(flags* result, char* str)
 {
-    int index = 0;
+    int index = 1;
     while (str[index] != '\0')
     {
         if (str[index] == 'a')
@@ -23,38 +23,38 @@ void set_flags(flags* result, char* str)
         {
             result->t = 1;
         }
-        else
+        /*else
         {
             printf("invalid option\n");
-        }
+        }*/
         index++;
     }
 }
 
-void set_file(flags* result, char* str)
+/*char** set_dir(char* str)
 {
-    
-        result->file[result->size] = malloc(sizeof(char)*strlen(str));
-        strcpy(result->file[result->size], str);
-        result->size++;
-        printf("%i\n",result->size);
+        char** dir = malloc(sizeof(char*) * 2);
+        dir[0] = malloc(sizeof(char)*strlen(str));
+        strcpy(dir[0], str);
+        return dir;
+        //printf("%i\n",result->size);
     
 
-}
+}*/
 
 flags* load_flags(int ac, char** av)
 {
     flags* result = set_object(ac);
-    int index = 0;
+    int index = 1;
     while (index < ac)
     {
         if (av[index][0] == '-')
         {
             set_flags(result, av[index]);
-        } else
+        } /*else
         {
-            set_file(result, av[index]);
-        }
+            result->dir = set_dir(av[index]);
+        }*/
         index++;
     }
     return result;
