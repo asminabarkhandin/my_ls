@@ -47,8 +47,8 @@ void a_flag()
     struct dirent  *entry;
     DIR *dir;
     dir = opendir(".");
-    while ((entry = readdir(dir)) != NULL) {
-        
+    while ((entry = readdir(dir)) != NULL) 
+    {
         head = insert(head, entry->d_name);
     }
          

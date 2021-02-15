@@ -8,22 +8,19 @@ struct file_tm
 };
 
 double my_difftime(long int tm1,long int tm2)
-{
-    printf("reacged\n");
+{   //here is minus cuz we are putting most recent in the beginnig,
+    //most recent time has more milliseconds => the order is DESC order
     return -(tm1-tm2);
 }
 
 int comp_tm(struct file_tm *file1, struct file_tm *file2)
 {
-    printf("%ld hey %s\n", file1->tm, file1->name);
-    printf("%ld hey %s\n", file2->tm, file2->name);
+    //check the time of modification first
     if((file1->tm) != (file2->tm))
     {
         return my_difftime(file1->tm, file2->tm);
-       
     } else
-    {
-        //printf("%s hey %s\n", file1->name, file2->name);
+    {  //if they were modificated in one time, then sort in lexicographical order
         return my_strcmp(file1->name, file2->name); 
     }
 }
@@ -65,7 +62,7 @@ void t_flag()
          
         struct file_tm *current = head;
         while (current != NULL) {
-            printf("%s\t", current->name);
+            printf("%s\n", current->name);
             current = current->next;
         }
         struct file_tm *tofree;
