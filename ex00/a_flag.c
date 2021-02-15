@@ -19,12 +19,12 @@ int my_strcmp(const char *str1, const char *str2)
     return *(const unsigned char*)str1 - *(const unsigned char*)str2;
 }
 
-struct file *insert (struct file *head, char* name)
+struct file_tm *insert (struct file_tm *head, char* name)
 {
-    struct file *ptr = malloc(sizeof(struct file));
+    struct file_tm *ptr = malloc(sizeof(struct file_tm));
     ptr->name = name;
     ptr->next = NULL;
-    struct file **temp = &head;
+    struct file_tm **temp = &head;
     while (*temp != NULL && my_strcmp(ptr->name, (*temp)->name) >= 0) {
         temp = &(*temp)->next;
     }
@@ -37,7 +37,7 @@ struct file *insert (struct file *head, char* name)
 
 void a_print(char* str)
 {
-    struct file *head = NULL;
+    struct file_tm *head = NULL;
     struct dirent  *entry;
     DIR *dir;
     dir = opendir(str);
@@ -46,12 +46,12 @@ void a_print(char* str)
         head = insert(head, entry->d_name);
     }
          
-        struct file *current = head;
+        struct file_tm *current = head;
         while (current != NULL) {
             printf("%s\n", current->name);
             current = current->next;
         }
-        struct file *tofree;
+        struct file_tm *tofree;
         while (head != NULL) {
             tofree = head;
             head = head->next;
