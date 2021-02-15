@@ -5,6 +5,7 @@ flags* set_object(int ac)
     flags* result = (flags*)malloc(sizeof(flags));
     result->a = 0;
     result->t = 0;
+    result->dir_container = NULL;
     return result;
 }
 
@@ -62,12 +63,6 @@ flags* load_flags(int ac, char** av)
         index++;
     }
 
-        struct dir *tofree;
-        while (head != NULL) {
-            tofree = head;
-            head = head->next;
-            free(tofree);
-        }
-
+    result->dir_container = head;
     return result;
 }

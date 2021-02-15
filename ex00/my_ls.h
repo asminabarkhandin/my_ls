@@ -46,10 +46,10 @@ double my_difftime(long int tm1,long int tm2);
 
 
 
-void at_flag();
+void both_flag();
 
 
-void t_flag();
+void t_flag(flags* flag);
 
 void no_flag();
 

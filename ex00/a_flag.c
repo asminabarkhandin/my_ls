@@ -35,14 +35,12 @@ struct file *insert (struct file *head, char* name)
 
 }
 
-
-void a_flag(flags* flag)
+void a_print(char* str)
 {
-    
     struct file *head = NULL;
     struct dirent  *entry;
     DIR *dir;
-    dir = opendir(".");
+    dir = opendir(str);
     while ((entry = readdir(dir)) != NULL) 
     {
         head = insert(head, entry->d_name);
@@ -60,5 +58,24 @@ void a_flag(flags* flag)
             free(tofree);
         }
         closedir(dir);
+}
+
+void a_flag(flags* flag)
+{
+    if(flag->dir_container == NULL)
+    {
+        char str[2] = ".";
+        a_print(str);
+    } else
+    {
+        struct dir *container = flag->dir_container;
+        while(container != NULL)
+        {
+            printf("%s:\n", container->name);
+            a_print(container->name);
+            container = container->next;
+        }
+    }
+    
     
 }

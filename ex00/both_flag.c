@@ -1,6 +1,6 @@
 #include "my_ls.h"
 
-void at_flag()
+void both_flag()
 {
     struct file_tm *head = NULL;
     struct dirent  *entry;

@@ -36,15 +36,15 @@ struct file_tm *insert_tm (struct file_tm *head, char* name, long int tm)
 
 }
 
-
-void t_flag()
+void t_print(char* str)
 {
+    printf("%s\n", str);
     struct file_tm *head = NULL;
     struct dirent  *entry;
     struct stat     statbuf;
     long int      tm;
     DIR *dir;
-    dir = opendir(".");
+    dir = opendir(str);
     while ((entry = readdir(dir)) != NULL) {
 
         if (stat(entry->d_name, &statbuf) == -1)
@@ -52,7 +52,10 @@ void t_flag()
 
         tm = statbuf.st_mtime;
         if(entry->d_name[0] != '.')
-        head = insert_tm(head, entry->d_name, tm);
+        {
+            head = insert_tm(head, entry->d_name, tm);
+        }
+        
     }
          
         struct file_tm *current = head;
@@ -67,5 +70,23 @@ void t_flag()
             free(tofree);
         }
         closedir(dir);
+}
+
+void t_flag(flags* flag)
+{
+    if(flag->dir_container == NULL)
+    {
+        char str[2] = ".";
+        t_print(str);
+    } else
+    {
+        struct dir *container = flag->dir_container;
+        while(container != NULL)
+        {
+            printf("%s:\n", container->name);
+            t_print(container->name);
+            container = container->next;
+        }
+    }
     
 }
