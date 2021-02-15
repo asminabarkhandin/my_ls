@@ -5,8 +5,6 @@ flags* set_object(int ac)
     flags* result = (flags*)malloc(sizeof(flags));
     result->a = 0;
     result->t = 0;
-    result->size = 0;
-    //result->dir = malloc(sizeof(char*) * (ac-1));
     return result;
 }
 
@@ -31,31 +29,45 @@ void set_flags(flags* result, char* str)
     }
 }
 
-/*char** set_dir(char* str)
+struct dir *set_dir (struct dir *head, char* name)
 {
-        char** dir = malloc(sizeof(char*) * 2);
-        dir[0] = malloc(sizeof(char)*strlen(str));
-        strcpy(dir[0], str);
-        return dir;
-        //printf("%i\n",result->size);
-    
+    struct dir *ptr = malloc(sizeof(struct dir));
+    ptr->name = name;
+    ptr->next = NULL;
+    struct dir **temp = &head;
+    while (*temp != NULL && my_strcmp(ptr->name, (*temp)->name) >= 0) {
+        temp = &(*temp)->next;
+    }
+   
+    ptr->next = *temp;
+    *temp = ptr;
+    return head;
 
-}*/
+}
 
 flags* load_flags(int ac, char** av)
 {
     flags* result = set_object(ac);
+    struct dir* head = NULL;
     int index = 1;
     while (index < ac)
     {
         if (av[index][0] == '-')
         {
             set_flags(result, av[index]);
-        } /*else
+        } else
         {
-            result->dir = set_dir(av[index]);
-        }*/
+            head = set_dir(head, av[index]);
+        }
         index++;
     }
+
+        struct dir *tofree;
+        while (head != NULL) {
+            tofree = head;
+            head = head->next;
+            free(tofree);
+        }
+
     return result;
 }

@@ -4,7 +4,7 @@ void print_flags(flags* flag)
 {
     if(flag->a == 1 && flag->t != 1)
     {
-        a_flag();
+        a_flag(flag);
     }
     if(flag->t == 1 && flag->a != 1)
     {

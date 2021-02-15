@@ -5,12 +5,16 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
+struct dir{
+    char* name;
+    struct dir *next;
+};
 typedef struct flags
 {
     int a;
     int t;
-    int size;
-    //char** dir;
+    struct dir* dir_container;
     
 } flags;
 
@@ -33,7 +37,7 @@ void print_flags(flags* flag);
 
 struct file *insert (struct file *head, char* name);
 
-void a_flag();
+void a_flag(flags* flag);
 
 int my_strcmp(const char *str1, const char *str2);
 struct file_tm *insert_tm (struct file_tm *head, char* name, long int tm);

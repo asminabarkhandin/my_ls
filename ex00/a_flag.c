@@ -36,8 +36,9 @@ struct file *insert (struct file *head, char* name)
 }
 
 
-void a_flag()
+void a_flag(flags* flag)
 {
+    
     struct file *head = NULL;
     struct dirent  *entry;
     DIR *dir;
