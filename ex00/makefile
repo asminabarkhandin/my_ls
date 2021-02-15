@@ -4,8 +4,8 @@ OUTPUT=my_ls
 
 all: ${OUTPUT}
 
-${OUTPUT}: main.o load_flags.o print_flags.o a_flag.o t_flag.o no_flag.o file_flag.o
-	${CC} ${CC_OPT} main.o load_flags.o print_flags.o a_flag.o t_flag.o no_flag.o file_flag.o -o ${OUTPUT}
+${OUTPUT}: main.o load_flags.o print_flags.o a_flag.o t_flag.o no_flag.o file_flag.o at_flag.o
+	${CC} ${CC_OPT} main.o load_flags.o print_flags.o a_flag.o t_flag.o no_flag.o file_flag.o at_flag.o -o ${OUTPUT}
 
 a_flag.o: a_flag.c
 	${CC} ${CC_OPT} -c a_flag.c
@@ -16,6 +16,9 @@ file_flag.o: file_flag.c
 t_flag.o: t_flag.c
 	${CC} ${CC_OPT} -c t_flag.c
 
+at_flag.o: at_flag.c
+	${CC} ${CC_OPT} -c at_flag.c
+
 no_flag.o: no_flag.c
 	${CC} ${CC_OPT} -c no_flag.c
 
@@ -25,5 +28,5 @@ print_flags.o: print_flags.c
 main.o: main.c
 	${CC} ${CC_OPT} -c main.c
 
-clean:
+clear:
 	rm *.o ${OUTPUT}

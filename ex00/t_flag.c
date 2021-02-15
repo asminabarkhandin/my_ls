@@ -1,11 +1,6 @@
 #include "my_ls.h"
 
-struct file_tm
-{
-    char* name;
-    long int tm;
-    struct file_tm *next;
-};
+
 
 double my_difftime(long int tm1,long int tm2)
 {   //here is minus cuz we are putting most recent in the beginnig,
