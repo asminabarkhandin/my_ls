@@ -10,7 +10,7 @@ void both_print(char* str)
     dir = opendir(str);
     while ((entry = readdir(dir)) != NULL) {
 
-        //if (stat(entry->d_name, &statbuf) == -1)
+        stat(entry->d_name, &statbuf);
             //continue;
 
         tm = statbuf.st_mtim;

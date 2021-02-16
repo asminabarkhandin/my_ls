@@ -1,7 +1,6 @@
 #include "my_ls.h"
 
 
-
 double my_difftime(struct timespec tm1,struct timespec tm2)
 {   //here is minus cuz we are putting most recent in the begining,
     //most recent time has more milliseconds => the order is DESC order
@@ -18,10 +17,15 @@ double my_difftime(struct timespec tm1,struct timespec tm2)
 int comp_tm(struct file_tm *file1, struct file_tm *file2)
 {
     //check the time of modification first
+    //printf("time %li %li\n", file1->tm.tv_nsec, file2->tm.tv_nsec);
     if((file1->tm.tv_sec) != (file2->tm.tv_sec))
     {
         return my_difftime(file1->tm, file2->tm);
-    } else
+    } else if ((file1->tm.tv_nsec) != (file2->tm.tv_nsec))
+    {
+        return my_difftime(file1->tm, file2->tm);
+    }
+    else
     {  //if they were modificated in one time, then sort in lexicographical order
         return my_strcmp(file1->name, file2->name); 
     }
@@ -55,9 +59,8 @@ void t_print(char* str)
     
     while ((entry = readdir(dir)) != NULL) {
 
-        //if (stat(entry->d_name, &statbuf) == -1)
+        stat(entry->d_name, &statbuf);
             //continue;
-
         tm = statbuf.st_mtim;
         
         if(entry->d_name[0] != '.')
