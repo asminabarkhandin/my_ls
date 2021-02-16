@@ -5,7 +5,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-
+#include <time.h>
 struct dir{
     char* name;
     struct dir *next;
@@ -22,7 +22,7 @@ typedef struct flags
 struct file_tm
 {
     char* name;
-    long int tm;
+    struct timespec tm;
     struct file_tm *next;
 };
 
@@ -35,17 +35,17 @@ struct file_tm *insert (struct file_tm *head, char* name);
 void a_flag(flags* flag);
 
 int my_strcmp(const char *str1, const char *str2);
-struct file_tm *insert_tm (struct file_tm *head, char* name, long int tm);
+struct file_tm *insert_tm (struct file_tm *head, char* name, struct timespec tm);
 int comp_tm(struct file_tm *file1, struct file_tm *file2);
-double my_difftime(long int tm1,long int tm2);
+double my_difftime(struct timespec tm1,struct timespec tm2);
 
 
 
-void both_flag();
+void both_flag(flags* flag);
 
 
 void t_flag(flags* flag);
 
-void no_flag();
+void no_flag(flags* flag);
 
 void file_flag(char** file, int size);

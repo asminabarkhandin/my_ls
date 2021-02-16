@@ -2,16 +2,23 @@
 
 
 
-double my_difftime(long int tm1,long int tm2)
+double my_difftime(struct timespec tm1,struct timespec tm2)
 {   //here is minus cuz we are putting most recent in the begining,
     //most recent time has more milliseconds => the order is DESC order
-    return -(tm1-tm2);
+    if(tm1.tv_sec != tm2.tv_sec)
+    {
+        return -(tm1.tv_sec - tm2.tv_sec);
+    } else
+    {
+        return -(tm1.tv_nsec-tm2.tv_nsec);
+    }
+    
 }
 
 int comp_tm(struct file_tm *file1, struct file_tm *file2)
 {
     //check the time of modification first
-    if((file1->tm) != (file2->tm))
+    if((file1->tm.tv_sec) != (file2->tm.tv_sec))
     {
         return my_difftime(file1->tm, file2->tm);
     } else
@@ -20,7 +27,7 @@ int comp_tm(struct file_tm *file1, struct file_tm *file2)
     }
 }
 
-struct file_tm *insert_tm (struct file_tm *head, char* name, long int tm)
+struct file_tm *insert_tm (struct file_tm *head, char* name, struct timespec tm)
 {
     struct file_tm *ptr = malloc(sizeof(struct file_tm));
     ptr->name = name;
@@ -42,15 +49,17 @@ void t_print(char* str)
     struct file_tm *head = NULL;
     struct dirent  *entry;
     struct stat     statbuf;
-    long int      tm;
+    struct timespec     tm;
     DIR *dir;
     dir = opendir(str);
+    
     while ((entry = readdir(dir)) != NULL) {
 
-        if (stat(entry->d_name, &statbuf) == -1)
-            continue;
+        //if (stat(entry->d_name, &statbuf) == -1)
+            //continue;
 
-        tm = statbuf.st_mtime;
+        tm = statbuf.st_mtim;
+        
         if(entry->d_name[0] != '.')
         {
             head = insert_tm(head, entry->d_name, tm);
@@ -81,6 +90,7 @@ void t_flag(flags* flag)
     } else
     {
         struct dir *container = flag->dir_container;
+        int index = 0;
         while(container != NULL)
         {
             if(flag->size != 1)
@@ -88,7 +98,13 @@ void t_flag(flags* flag)
                 printf("%s:\n", container->name);
             }
             t_print(container->name);
+            index++;
             container = container->next;
+
+            if(flag->size != 1 && index != flag->size)
+            {
+                printf("\n");
+            }
         }
     }
     

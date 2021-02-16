@@ -69,6 +69,7 @@ void a_flag(flags* flag)
     } else
     {
         struct dir *container = flag->dir_container;
+        int index = 0;
         while(container != NULL)
         {
             if(flag->size != 1)
@@ -77,7 +78,13 @@ void a_flag(flags* flag)
             }
             
             a_print(container->name);
+            index++;
             container = container->next;
+
+            if(flag->size != 1 && index != flag->size)
+            {
+                printf("\n");
+            }
         }
     }
     
