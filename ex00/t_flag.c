@@ -7,17 +7,13 @@ double my_difftime(struct timespec tm1,struct timespec tm2)
     if(tm1.tv_sec != tm2.tv_sec)
     {
         return -(tm1.tv_sec - tm2.tv_sec);
-    } else
+    } else if(tm1.tv_nsec != tm2.tv_nsec)
     {
         return -(tm1.tv_nsec-tm2.tv_nsec);
-    }
-    
+    } 
 }
-
 int comp_tm(struct file_tm *file1, struct file_tm *file2)
 {
-    //check the time of modification first
-    //printf("time %li %li\n", file1->tm.tv_nsec, file2->tm.tv_nsec);
     if((file1->tm.tv_sec) != (file2->tm.tv_sec))
     {
         return my_difftime(file1->tm, file2->tm);
