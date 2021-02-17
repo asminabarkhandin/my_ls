@@ -8,6 +8,7 @@
 #include <time.h>
 struct dir{
     char* name;
+    struct timespec tm;
     struct dir *next;
 };
 typedef struct flags

@@ -23,24 +23,48 @@ void set_flags(flags* result, char* str)
         {
             result->t = 1;
         }
-        /*else
+        if (str[index] != 'a' && str[index] != 't')
         {
-            printf("invalid option\n");
-        }*/
+            printf("my_ls: invalid option -- \'%c\'\n", str[index]);
+            //exit(1);
+        }
         index++;
     }
 }
 
-struct dir *set_dir (struct dir *head, char* name)
+int comp_dir_by_tm(struct dir *file1, struct dir *file2)
+{
+    if((file1->tm.tv_sec) != (file2->tm.tv_sec))
+    {
+        return my_difftime(file1->tm, file2->tm);
+    } else if ((file1->tm.tv_nsec) != (file2->tm.tv_nsec))
+    {
+        return my_difftime(file1->tm, file2->tm);
+    }
+    else
+    {  //if they were modificated in one time, then sort in lexicographical order
+        return my_strcmp(file1->name, file2->name); 
+    }
+}
+
+struct dir *set_dir (struct dir *head, char* name, struct timespec tm, flags* flag)
 {
     struct dir *ptr = malloc(sizeof(struct dir));
     ptr->name = name;
+    ptr->tm = tm;
     ptr->next = NULL;
     struct dir **temp = &head;
-    while (*temp != NULL && my_strcmp(ptr->name, (*temp)->name) >= 0) {
-        temp = &(*temp)->next;
+    if(flag->t == 0)
+    {
+        while (*temp != NULL && my_strcmp(ptr->name, (*temp)->name) >= 0) {
+            temp = &(*temp)->next;
+        }
+    } else //trying to compare dirs on their mtime
+    {
+        while (*temp != NULL && comp_dir_by_tm(ptr, *temp) >= 0) {
+            temp = &(*temp)->next;
+        }
     }
-   
     ptr->next = *temp;
     *temp = ptr;
     return head;
@@ -60,7 +84,10 @@ flags* load_flags(int ac, char** av)
             set_flags(result, av[index]);
         } else
         {
-            head = set_dir(head, av[index]);
+            struct stat statbuf;
+            stat(av[index], &statbuf);
+            struct timespec tm = statbuf.st_mtim;
+            head = set_dir(head, av[index], tm, result);
             size++;
         }
         index++;
