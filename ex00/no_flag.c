@@ -1,7 +1,7 @@
 #include "my_ls.h"
 
 
-void no_print(char* str)
+void no_flag(char* str)
 {
     
     struct file_tm *head = NULL;
@@ -27,7 +27,7 @@ void no_print(char* str)
         }
         closedir(dir);
 }
-
+/*
 void no_flag(flags* flag){
 
     if(flag->dir_container == NULL)
@@ -56,4 +56,4 @@ void no_flag(flags* flag){
     }
 
     
-}
+}*/

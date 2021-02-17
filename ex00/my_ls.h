@@ -35,7 +35,7 @@ void print_flags(flags* flag);
 
 struct file_tm *insert (struct file_tm *head, char* name);
 
-void a_flag(flags* flag);
+void a_flag(char* str);
 
 int my_strcmp(const char *str1, const char *str2);
 struct file_tm *insert_tm (struct file_tm *head, char* name, struct timespec tm);
@@ -44,11 +44,11 @@ double my_difftime(struct timespec tm1,struct timespec tm2);
 
 
 
-void both_flag(flags* flag);
+void both_flag(char* str);
 
 
-void t_flag(flags* flag);
+void t_flag(char* str);
 
-void no_flag(flags* flag);
+void no_flag(char* str);
 
 void file_flag(char** file, int size);

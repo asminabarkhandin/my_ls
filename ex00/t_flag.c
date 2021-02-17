@@ -68,7 +68,7 @@ struct file_tm *insert_tm (struct file_tm *head, char* name, struct timespec tm)
 
 }
 
-void t_print(char* str)
+void t_flag(char* str)
 {
     //printf("%s\n", str);
     struct file_tm *head = NULL;
@@ -113,7 +113,7 @@ void t_print(char* str)
         }
         closedir(dir);
 }
-
+/*
 void t_flag(flags* flag)
 {
     if(flag->dir_container == NULL)
@@ -141,4 +141,4 @@ void t_flag(flags* flag)
         }
     }
     
-}
+}*/

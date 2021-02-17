@@ -1,6 +1,6 @@
 #include "my_ls.h"
 
-void both_print(char* str)
+void both_flag(char* str)
 {
     struct file_tm *head = NULL;
     struct dirent  *entry;
@@ -43,7 +43,7 @@ void both_print(char* str)
         closedir(dir);
     
 }
-
+/*
 void both_flag(flags* flag)
 {
     if(flag->dir_container == NULL)
@@ -73,4 +73,4 @@ void both_flag(flags* flag)
     }
     
     
-}
+}*/

@@ -35,7 +35,7 @@ struct file_tm *insert (struct file_tm *head, char* name)
 
 }
 
-void a_print(char* str)
+void a_flag(char* str)
 {
     struct file_tm *head = NULL;
     struct dirent  *entry;
@@ -59,7 +59,7 @@ void a_print(char* str)
         }
         closedir(dir);
 }
-
+/*
 void a_flag(flags* flag)
 {
     if(flag->dir_container == NULL)
@@ -89,4 +89,4 @@ void a_flag(flags* flag)
     }
     
     
-}
+}*/
