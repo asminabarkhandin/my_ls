@@ -26,6 +26,8 @@ struct file_tm
     struct file_tm *next;
 };
 
+char* my_strcat(char* dest, const char* src);
+
 flags* load_flags(int ac, char** av);
 
 void print_flags(flags* flag);

@@ -10,8 +10,19 @@ void both_print(char* str)
     dir = opendir(str);
     while ((entry = readdir(dir)) != NULL) {
 
-        stat(entry->d_name, &statbuf);
-            //continue;
+        if (str[0] != '.')
+        {
+            char abs_path[50] = ".";
+            char slash[2] = "/";
+            my_strcat(abs_path, slash);
+            my_strcat(abs_path, str);
+            my_strcat(abs_path, slash);
+            my_strcat(abs_path, entry->d_name);
+            stat(abs_path, &statbuf);
+        } else
+        {
+            stat(entry->d_name, &statbuf);
+        }
 
         tm = statbuf.st_mtim;
         
