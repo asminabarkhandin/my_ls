@@ -1,5 +1,30 @@
 #include "my_ls.h"
 
+int my_strlen(char* str)
+{
+    int count = 0;
+    char* ptr = str;
+    while(*ptr != '\0'){
+        ptr++;
+        count++;
+    }
+    return count;
+}
+
+char* my_strcat(char* dest, const char* src)
+{
+    char* ptr = dest + my_strlen(dest);
+    while (*src != '\0')
+    {
+        *ptr = *src;
+        ptr++;
+        src++;
+    }
+        
+    *ptr = '\0';
+    return dest;
+}
+
 
 double my_difftime(struct timespec tm1,struct timespec tm2)
 {   //here is minus cuz we are putting most recent in the begining,
@@ -53,19 +78,28 @@ void t_print(char* str)
     DIR *dir;
     dir = opendir(str);
     
-    while ((entry = readdir(dir)) != NULL) {
-
-        stat(entry->d_name, &statbuf);
-            //continue;
+    while ((entry = readdir(dir)) != NULL) 
+    {
+        if (str[0] != '.')
+        {
+            char abs_path[50] = ".";
+            char slash[2] = "/";
+            my_strcat(abs_path, slash);
+            my_strcat(abs_path, str);
+            my_strcat(abs_path, slash);
+            my_strcat(abs_path, entry->d_name);
+            stat(abs_path, &statbuf);
+        } else
+        {
+            stat(entry->d_name, &statbuf);
+        }
         tm = statbuf.st_mtim;
-        
         if(entry->d_name[0] != '.')
         {
             head = insert_tm(head, entry->d_name, tm);
         }
         
     }
-         
         struct file_tm *current = head;
         while (current != NULL) {
             printf("%s\n", current->name);
