@@ -20,10 +20,10 @@ char* my_strcat(char* dest, const char* src)
         ptr++;
         src++;
     }
-        
     *ptr = '\0';
     return dest;
 }
+
 
 
 double my_difftime(struct timespec tm1,struct timespec tm2)
@@ -32,11 +32,14 @@ double my_difftime(struct timespec tm1,struct timespec tm2)
     if(tm1.tv_sec != tm2.tv_sec)
     {
         return -(tm1.tv_sec - tm2.tv_sec);
-    } else if(tm1.tv_nsec != tm2.tv_nsec)
+    }
+    if(tm1.tv_nsec != tm2.tv_nsec)
     {
         return -(tm1.tv_nsec-tm2.tv_nsec);
     } 
+    return 0;
 }
+
 int comp_tm(struct file_tm *file1, struct file_tm *file2)
 {
     if((file1->tm.tv_sec) != (file2->tm.tv_sec))
@@ -70,7 +73,6 @@ struct file_tm *insert_tm (struct file_tm *head, char* name, struct timespec tm)
 
 void t_flag(char* str)
 {
-    //printf("%s\n", str);
     struct file_tm *head = NULL;
     struct dirent  *entry;
     struct stat     statbuf;
@@ -113,32 +115,3 @@ void t_flag(char* str)
         }
         closedir(dir);
 }
-/*
-void t_flag(flags* flag)
-{
-    if(flag->dir_container == NULL)
-    {
-        char str[2] = ".";
-        t_print(str);
-    } else
-    {
-        struct dir *container = flag->dir_container;
-        int index = 0;
-        while(container != NULL)
-        {
-            if(flag->size != 1)
-            {
-                printf("%s:\n", container->name);
-            }
-            t_print(container->name);
-            index++;
-            container = container->next;
-
-            if(flag->size != 1 && index != flag->size)
-            {
-                printf("\n");
-            }
-        }
-    }
-    
-}*/

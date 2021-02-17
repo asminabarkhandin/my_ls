@@ -43,12 +43,10 @@ void print_flags(flags* flag)
     if(flag->a == 1 && flag->t == 1)
     {
         print_f(flag, both_flag);
-        //file_flag(flag->file, flag->size);
     }
     if(flag->a == 0 && flag->t == 0)
     {
         print_f(flag, no_flag);
-        //file_flag(flag->file, flag->size);
     }
     
 }

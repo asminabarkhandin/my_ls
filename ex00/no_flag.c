@@ -27,33 +27,3 @@ void no_flag(char* str)
         }
         closedir(dir);
 }
-/*
-void no_flag(flags* flag){
-
-    if(flag->dir_container == NULL)
-    {
-        char str[2] = ".";
-        no_print(str);
-    } else
-    {
-        struct dir *container = flag->dir_container;
-        int index = 0;
-        while(container != NULL)
-        {
-            if(flag->size != 1)
-            {
-                printf("%s:\n", container->name);
-            }
-            
-            no_print(container->name);
-            index++;
-            container = container->next;
-            if(flag->size != 1 && index != flag->size)
-            {
-                printf("\n");
-            }
-        }
-    }
-
-    
-}*/
