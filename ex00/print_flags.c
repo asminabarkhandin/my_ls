@@ -33,18 +33,18 @@ void print_flags(flags* flag)
 {
     if (flag->a == 1 && flag->t != 1)
     {
-        print_f(flag, a_flag);
+        print_f(flag, a_flag);  // a_flag.c
     }
     if (flag->t == 1 && flag->a != 1)
     {
-        print_f(flag, t_flag);
+        print_f(flag, t_flag);  // t_flag.c
     }
     if (flag->a == 1 && flag->t == 1)
     {
-        print_f(flag, both_flag);
+        print_f(flag, both_flag);  // both_flag.c
     }
     if (flag->a == 0 && flag->t == 0)
     {
-        print_f(flag, no_flag);
+        print_f(flag, no_flag);  // no_flag.c
     }
 }

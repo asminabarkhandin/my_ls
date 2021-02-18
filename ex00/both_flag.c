@@ -12,12 +12,12 @@ void both_flag(char *str)
     {
         if (str[0] != '.')
         {
-                char abs_path[50] = "";
-                char slash[2] = "/";
-                my_strcat(abs_path, str);
-                my_strcat(abs_path, slash);
-                my_strcat(abs_path, entry->d_name);
-                lstat(abs_path, &statbuf);
+            char abs_path[50] = "";
+            char slash[2] = "/";
+            my_strcat(abs_path, str);
+            my_strcat(abs_path, slash);
+            my_strcat(abs_path, entry->d_name);
+            lstat(abs_path, &statbuf);
         }
         else
         {

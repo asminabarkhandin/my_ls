@@ -10,7 +10,7 @@ flags* set_object(int ac)
     return result;
 }
 
-void set_flags(flags* result, char* str)
+int set_flags(flags* result, char* str)
 {
     int index = 1;
     while (str[index] != '\0')
@@ -26,10 +26,11 @@ void set_flags(flags* result, char* str)
         if (str[index] != 'a' && str[index] != 't')
         {
             printf("my_ls: invalid option -- \'%c\'\n", str[index]);
-            // exit(1);
+            return -1;
         }
         index++;
     }
+    return 0;
 }
 
 int comp_dir_by_tm(struct dir* file1, struct dir* file2)
@@ -43,14 +44,13 @@ int comp_dir_by_tm(struct dir* file1, struct dir* file2)
         return my_difftime(file1->tm, file2->tm);
     }
     else
-    {   // if they were modificated in one time, then sort in lexicographical
-// order
+    { // if they were modificated in one time, then sort in lexicographical order
 
         return my_strcmp(file1->name, file2->name);
     }
 }
 
-struct dir* set_dir(struct dir* head, char* name, struct timespec tm,
+struct dir* set_dir(struct dir* head, char* name, struct timespec tm, 
 flags* flag)
 {
     struct dir* ptr = malloc(sizeof(struct dir));
@@ -83,11 +83,12 @@ flags* load_flags(int ac, char** av)
     struct dir* head = NULL;
     int index = 1;
     int size = 0;
+    int ret;
     while (index < ac)
     {
         if (av[index][0] == '-')
         {
-            set_flags(result, av[index]);
+            ret = set_flags(result, av[index]);
         }
         else
         {
@@ -99,8 +100,14 @@ flags* load_flags(int ac, char** av)
         }
         index++;
     }
-
     result->dir_container = head;
-    result->size = size;
+    if (ret == -1)
+    {
+        result->size = ret;
+    }
+    else
+    {
+        result->size = size;
+    }
     return result;
 }
