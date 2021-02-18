@@ -82,19 +82,18 @@ void t_flag(char *str)
     dir = opendir(str);
     while ((entry = readdir(dir)) != NULL)
     {
-        if (str[0] != '.')
+        if (str[0] != '.') //if not local dir, we construct absolute path to access stat about files inside it
         {
-            char abs_path[50] = ".";
-            char slash[2] = "/";
-            my_strcat(abs_path, slash);
-            my_strcat(abs_path, str);
-            my_strcat(abs_path, slash);
-            my_strcat(abs_path, entry->d_name);
-            stat(abs_path, &statbuf);
+                char abs_path[50] = "";
+                char slash[2] = "/";
+                my_strcat(abs_path, str);
+                my_strcat(abs_path, slash);
+                my_strcat(abs_path, entry->d_name);
+                lstat(abs_path, &statbuf);
         }
         else
         {
-            stat(entry->d_name, &statbuf);
+            lstat(entry->d_name, &statbuf);
         }
         tm = statbuf.st_mtim;
         if (entry->d_name[0] != '.')
