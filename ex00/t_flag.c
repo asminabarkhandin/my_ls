@@ -105,9 +105,10 @@ void t_flag(char *str)
     struct file_tm *current = head;
     while (current != NULL)
     {
-        printf("%s\n", current->name);
+        printf("%s  ", current->name);
         current = current->next;
     }
+    printf("\n");
     struct file_tm *tofree;
     while (head != NULL)
     {
